@@ -9,6 +9,8 @@
     cursor: pointer;
     background-color: #3f4757;
     transition: 200ms ease-in-out;
+    animation: fadeIn 0.5s ease-in-out;
+    z-index: 999;
 
     &:hover {
         background-color: #4a5262;
@@ -115,5 +117,81 @@
     .tooltiptext {
         padding: 10px;
         font-size: 14px;
+    }
+}
+
+.fadeOutAnim {
+    animation: fadeOut 0.7s ease-out;
+}
+
+.slideRightAnim {
+    animation: slideToRight 0.7s ease-out;
+}
+
+.slideToBrAnim {
+    animation: slideToBottomRight 0.7s ease-out;
+}
+
+.slideToBottomAnim {
+    animation: slideToBottom 0.7s ease-out;
+}
+
+.slideToLeftAnim {
+    animation: slideToLeft 0.7s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideToRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes slideToLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideToBottomRight {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        transform: translateX(100%) translateY(500%);
+    }
+}
+
+@keyframes slideToBottom {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100%);
     }
 }

@@ -8,6 +8,13 @@ export default function TodoCard({ todo, remove, done, progress }) {
     const [doneTooltip, setDoneTooltip] = useState(false);
     const [inProgTooltip, setInProgTooltip] = useState(false);
 
+    // Animations
+    const [fadeOut, setFadeOut] = useState(false);
+    const [slideRight, setSlideRight] = useState(false);
+    const [slideToBr, setSlideToBr] = useState(false);
+    const [slideToBottom, setSlideToBottom] = useState(false);
+    const [slideToLeft, setSlideToLeft] = useState(false);
+
     const handleTooltip = (type) => {
         if (type === "delete") {
             setDeleteTooltip((currVal) => !currVal);
@@ -21,15 +28,64 @@ export default function TodoCard({ todo, remove, done, progress }) {
             setInProgTooltip((currVal) => !currVal);
         }
     };
+
+    const handleDelete = () => {
+        setFadeOut(true);
+
+        setTimeout(() => {
+            remove(todo.id, todo.status);
+        }, 650);
+    };
+
+    const handleInProgress = () => {
+        setSlideRight(true);
+
+        setTimeout(() => {
+            progress(todo.id, todo.status);
+        }, 650);
+    };
+
+    const handleComplete = () => {
+        if (todo.status === "inProgress") {
+            setSlideToBottom(true);
+
+            setTimeout(() => {
+                done(todo.id, todo.status);
+            }, 650);
+            return;
+        }
+
+        if (todo.status === "done") {
+            setSlideToLeft(true);
+
+            setTimeout(() => {
+                done(todo.id, todo.status);
+            }, 650);
+            return;
+        }
+
+        setSlideToBr(true);
+
+        setTimeout(() => {
+            done(todo.id, todo.status);
+        }, 650);
+    };
+
     return (
-        <div className="todoItem">
+        <div
+            className={`todoItem ${fadeOut ? "fadeOutAnim" : ""} ${slideRight ? "slideRightAnim fadeOutAnim" : ""} ${
+                slideToBr ? "slideToBrAnim fadeOutAnim" : ""
+            } ${slideToBottom ? "slideToBottomAnim fadeOutAnim" : ""} ${
+                slideToLeft ? "slideToLeftAnim fadeOutAnim" : ""
+            }`}
+        >
             <div className="todoTitle">
                 {todo.status != "done" && (
                     <div className="inProgContainer">
                         <input
                             onMouseEnter={() => handleTooltip("inProg")}
                             onMouseLeave={() => setInProgTooltip(false)}
-                            onChange={() => progress(todo.id, todo.status)}
+                            onChange={handleInProgress}
                             type="checkbox"
                             checked={todo.status === "inProgress"}
                         />
@@ -48,7 +104,7 @@ export default function TodoCard({ todo, remove, done, progress }) {
                 <button
                     onMouseEnter={() => handleTooltip("delete")}
                     onMouseLeave={() => setDeleteTooltip(false)}
-                    onClick={() => remove(todo.id, todo.status)}
+                    onClick={handleDelete}
                     className="btnDelete"
                 >
                     <LuTrash2 size={20} />
@@ -62,7 +118,7 @@ export default function TodoCard({ todo, remove, done, progress }) {
                 <button
                     onMouseEnter={() => handleTooltip("done")}
                     onMouseLeave={() => setDoneTooltip(false)}
-                    onClick={() => done(todo.id, todo.status)}
+                    onClick={handleComplete}
                     className="btnDone"
                 >
                     {todo.status === "done" ? <LuUndo2 size={20} /> : <LuCheckCircle size={20} />}

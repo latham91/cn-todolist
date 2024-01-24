@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import TodoCard from "./components/TodoCard";
+import { LuCoffee, LuHeart } from "react-icons/lu";
 
 export default function App() {
     const [todos, setTodos] = useState([]);
@@ -233,6 +234,10 @@ export default function App() {
                     </div>
                 </div>
             </div>
+            <footer>
+                Made with <LuHeart className="heart" size={20} /> and <LuCoffee className="coffee" size={20} /> by{" "}
+                <a href="https://github.com/latham91">Aaron</a>
+            </footer>
         </div>
     );
 }
