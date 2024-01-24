@@ -35,7 +35,9 @@ export default function TodoCard({ todo, remove, done, progress }) {
                         />
                         {inProgTooltip && (
                             <div className="tooltipInProg">
-                                <span className="tooltiptext">Make active</span>
+                                <span className="tooltiptext">
+                                    {todo.status === "inProgress" ? "Remove active" : "Make active"}
+                                </span>
                             </div>
                         )}
                     </div>
@@ -67,7 +69,9 @@ export default function TodoCard({ todo, remove, done, progress }) {
 
                     {doneTooltip && (
                         <div className="tooltip">
-                            <span className="tooltiptext">Mark complete</span>
+                            <span className="tooltiptext">
+                                {todo.status === "done" ? "Undo complete" : "Mark completed"}
+                            </span>
                         </div>
                     )}
                 </button>
