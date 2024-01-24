@@ -1,7 +1,7 @@
 import "./TodoCard.css";
-import { LuTrash2, LuCheckCircle, LuUndo2 } from "react-icons/lu";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { LuTrash2, LuCheckCircle, LuUndo2 } from "react-icons/lu";
 
 export default function TodoCard({ todo, remove, done, progress }) {
     const [deleteTooltip, setDeleteTooltip] = useState(false);
@@ -15,6 +15,7 @@ export default function TodoCard({ todo, remove, done, progress }) {
     const [slideToBottom, setSlideToBottom] = useState(false);
     const [slideToLeft, setSlideToLeft] = useState(false);
 
+    // Handle tooltips based on the status of the todo item (done, in progress, todo)
     const handleTooltip = (type) => {
         if (type === "delete") {
             setDeleteTooltip((currVal) => !currVal);
@@ -29,6 +30,7 @@ export default function TodoCard({ todo, remove, done, progress }) {
         }
     };
 
+    // Handle delete todo adds animation and removes todo after animation is done
     const handleDelete = () => {
         setFadeOut(true);
 
@@ -37,6 +39,7 @@ export default function TodoCard({ todo, remove, done, progress }) {
         }, 650);
     };
 
+    // Handle click for in progress checkbox, adds animation.
     const handleInProgress = () => {
         if (todo.status === "inProgress") {
             setSlideToLeft(true);
@@ -54,6 +57,7 @@ export default function TodoCard({ todo, remove, done, progress }) {
         }, 650);
     };
 
+    // Handle click for done button, adds animation.
     const handleComplete = () => {
         if (todo.status === "inProgress") {
             setSlideToBottom(true);
@@ -145,6 +149,7 @@ export default function TodoCard({ todo, remove, done, progress }) {
     );
 }
 
+// Prop types for type safety
 TodoCard.propTypes = {
     todo: PropTypes.object.isRequired,
     remove: PropTypes.func.isRequired,

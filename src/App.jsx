@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import TodoCard from "./components/TodoCard";
 import { LuCoffee, LuHeart } from "react-icons/lu";
+import TodoCard from "./components/TodoCard";
 
 export default function App() {
     const [todos, setTodos] = useState([]);
@@ -9,6 +9,7 @@ export default function App() {
     const [inProgressTodos, setInProgressTodos] = useState([]);
 
     // Get todos from local storage on page load
+    // Use effect runs once on page load with empty array as second argument
     useEffect(() => {
         const getTodos = localStorage.getItem("todos");
         const getDoneTodos = localStorage.getItem("doneTodos");
@@ -29,21 +30,26 @@ export default function App() {
 
     // ADD TODO
     const addTodo = (event) => {
+        // Prevent page refresh
         event.preventDefault();
 
+        // If input is empty, return
         if (event.target[0].value.trim().length === 0 || event.target[0].value === "") {
             return;
         }
 
+        // Create new todo object with random id and title from input
         const newTodo = {
             id: Math.random(),
             title: event.target[0].value.trim(),
             status: "todo",
         };
 
+        // Add new todo to todos array and local storage
         setTodos([...todos, newTodo]);
         localStorage.setItem("todos", JSON.stringify([...todos, newTodo]));
 
+        // Clear input
         event.target[0].value = "";
     };
 
@@ -54,11 +60,13 @@ export default function App() {
             const getTodo = inProgressTodos.find((todo) => todo.id === id);
             const updatedInProgressTodos = inProgressTodos.filter((todo) => todo.id !== id);
 
+            // Update todo status
             const updatedTodo = {
                 ...getTodo,
                 status: "todo",
             };
 
+            // Update state and local storage
             setInProgressTodos(updatedInProgressTodos);
             setTodos([...todos, updatedTodo]);
             localStorage.setItem("todos", JSON.stringify([...todos, updatedTodo]));
@@ -68,14 +76,17 @@ export default function App() {
 
         // If todo is todo, move it to in progress
         if (status === "todo") {
+            // Get todo from todos array
             const getTodo = todos.find((todo) => todo.id === id);
             const updatedTodos = todos.filter((todo) => todo.id !== id);
 
+            // Update todo status
             const updatedTodo = {
                 ...getTodo,
                 status: "inProgress",
             };
 
+            // Update state and local storage
             setTodos(updatedTodos);
             setInProgressTodos([...inProgressTodos, updatedTodo]);
             localStorage.setItem("todos", JSON.stringify(updatedTodos));
@@ -86,6 +97,7 @@ export default function App() {
 
     // DELETE TODO
     const deleteTodo = (id, status) => {
+        // Handle deletion based on status of todos
         if (status === "done") {
             const updatedDoneTodos = doneTodos.filter((todo) => todo.id !== id);
             setDoneTodos(updatedDoneTodos);
@@ -100,6 +112,7 @@ export default function App() {
             return;
         }
 
+        // Update todos array and local storage
         const updatedTodos = todos.filter((todo) => todo.id !== id);
         setTodos(updatedTodos);
         localStorage.setItem("todos", JSON.stringify(updatedTodos));
@@ -112,11 +125,13 @@ export default function App() {
             const getTodo = inProgressTodos.find((todo) => todo.id === id);
             const updatedInProgressTodos = inProgressTodos.filter((todo) => todo.id !== id);
 
+            // Update todo status
             const updatedTodo = {
                 ...getTodo,
                 status: "done",
             };
 
+            // Update state and local storage
             setInProgressTodos(updatedInProgressTodos);
             setDoneTodos([...doneTodos, updatedTodo]);
             localStorage.setItem("inProgressTodos", JSON.stringify(updatedInProgressTodos));
@@ -129,11 +144,13 @@ export default function App() {
             const getTodo = todos.find((todo) => todo.id === id);
             const updatedTodos = todos.filter((todo) => todo.id !== id);
 
+            // Update todo status
             const updatedTodo = {
                 ...getTodo,
                 status: "done",
             };
 
+            // Update state and local storage
             setTodos(updatedTodos);
             setDoneTodos([...doneTodos, updatedTodo]);
             localStorage.setItem("todos", JSON.stringify(updatedTodos));
