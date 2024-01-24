@@ -133,6 +133,12 @@ form {
                 font-size: 20px;
             }
         }
+
+        .inProgressList {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
     }
 
     .rightBottom {
@@ -162,6 +168,12 @@ form {
                 color: white;
                 font-size: 20px;
             }
+        }
+
+        .completedList {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
     }
 }

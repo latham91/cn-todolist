@@ -30,9 +30,13 @@ export default function App() {
     const addTodo = (event) => {
         event.preventDefault();
 
+        if (event.target[0].value.trim().length === 0 || event.target[0].value === "") {
+            return;
+        }
+
         const newTodo = {
             id: Math.random(),
-            title: event.target[0].value,
+            title: event.target[0].value.trim(),
             status: "todo",
         };
 
