@@ -236,7 +236,7 @@ export default function App() {
             </div>
             <footer>
                 Made with <LuHeart className="heart" size={20} /> and <LuCoffee className="coffee" size={20} /> by{" "}
-                <a href="https://github.com/latham91">Aaron</a>
+                <a href="https://github.com/latham91">Aaron Latham</a>
             </footer>
         </div>
     );
