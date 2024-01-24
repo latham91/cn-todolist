@@ -38,6 +38,15 @@ export default function TodoCard({ todo, remove, done, progress }) {
     };
 
     const handleInProgress = () => {
+        if (todo.status === "inProgress") {
+            setSlideToLeft(true);
+
+            setTimeout(() => {
+                progress(todo.id, todo.status);
+            }, 650);
+            return;
+        }
+
         setSlideRight(true);
 
         setTimeout(() => {
