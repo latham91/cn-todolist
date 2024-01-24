@@ -10,7 +10,6 @@
     background-color: #3f4757;
     transition: 200ms ease-in-out;
     animation: fadeIn 0.5s ease-in-out;
-    z-index: 999;
 
     &:hover {
         background-color: #4a5262;
@@ -102,7 +101,7 @@
 .tooltipInProg {
     position: absolute;
     background-color: #8782ac;
-    width: 120px;
+    width: 150px;
     border: 1px solid white;
     border-radius: 5px;
     left: 0;
