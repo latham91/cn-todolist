@@ -111,8 +111,8 @@ export default function TodoCard({ todo, remove, done, progress }) {
                         )}
                     </div>
                 )}
-                <span className="titleText">{todo.title}</span>
             </div>
+            <span>{todo.title}</span>
             <div className="todoButtons">
                 <button
                     onMouseEnter={() => handleTooltip("delete")}
