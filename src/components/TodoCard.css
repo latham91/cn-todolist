@@ -15,10 +15,6 @@
         background-color: #4a5262;
     }
 
-    span {
-        font-size: 20px;
-    }
-
     .todoTitle {
         display: flex;
         align-items: center;
@@ -40,6 +36,10 @@
             &:checked {
                 accent-color: #e5de18;
             }
+        }
+
+        .titleText {
+            font-size: 18px;
         }
     }
 }

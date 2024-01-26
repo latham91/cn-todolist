@@ -111,7 +111,7 @@ export default function TodoCard({ todo, remove, done, progress }) {
                         )}
                     </div>
                 )}
-                <span>{todo.title}</span>
+                <span className="titleText">{todo.title}</span>
             </div>
             <div className="todoButtons">
                 <button
