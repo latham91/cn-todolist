@@ -11,7 +11,6 @@ export default function TodoCard({ todo, remove, done, progress }) {
     // Animations
     const [fadeOut, setFadeOut] = useState(false);
     const [slideRight, setSlideRight] = useState(false);
-    const [slideToBr, setSlideToBr] = useState(false);
     const [slideToBottom, setSlideToBottom] = useState(false);
     const [slideToLeft, setSlideToLeft] = useState(false);
 
@@ -77,7 +76,7 @@ export default function TodoCard({ todo, remove, done, progress }) {
             return;
         }
 
-        setSlideToBr(true);
+        setFadeOut(true);
 
         setTimeout(() => {
             done(todo.id, todo.status);
@@ -87,10 +86,8 @@ export default function TodoCard({ todo, remove, done, progress }) {
     return (
         <div
             className={`todoItem ${fadeOut ? "fadeOutAnim" : ""} ${slideRight ? "slideRightAnim fadeOutAnim" : ""} ${
-                slideToBr ? "slideToBrAnim fadeOutAnim" : ""
-            } ${slideToBottom ? "slideToBottomAnim fadeOutAnim" : ""} ${
-                slideToLeft ? "slideToLeftAnim fadeOutAnim" : ""
-            }`}
+                slideToBottom ? "slideToBottomAnim fadeOutAnim" : ""
+            } ${slideToLeft ? "slideToLeftAnim fadeOutAnim" : ""}`}
         >
             <div className="todoTitle">
                 {todo.status != "done" && (

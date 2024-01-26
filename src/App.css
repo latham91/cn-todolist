@@ -90,6 +90,7 @@ form {
     flex: 1;
     border-right: 4px solid white;
     padding: 20px;
+    min-width: 50%;
     overflow-y: scroll;
     overflow-x: hidden;
 
@@ -126,6 +127,7 @@ form {
     display: flex;
     flex-direction: column;
     color: white;
+    min-width: 46%;
 
     .rightTop {
         display: flex;
