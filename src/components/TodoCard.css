@@ -1,4 +1,5 @@
 .todoItem {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -13,6 +14,13 @@
 
     &:hover {
         background-color: #4a5262;
+    }
+
+    span {
+        font-size: 20px;
+        margin: 0 10px;
+        overflow: hidden;
+        width: 100%;
     }
 
     .todoTitle {
@@ -37,16 +45,14 @@
                 accent-color: #e5de18;
             }
         }
-
-        .titleText {
-            font-size: 18px;
-        }
     }
 }
 
 .todoButtons {
     display: flex;
     gap: 10px;
+    align-items: center;
+    justify-content: center;
 
     .btnDelete {
         position: relative;
@@ -80,7 +86,7 @@
 .tooltip {
     position: absolute;
     background-color: #8782ac;
-    width: 120px;
+    width: 130px;
     border: 1px solid white;
     border-radius: 5px;
     left: -70px;
@@ -95,6 +101,7 @@
     .tooltiptext {
         padding: 10px;
         font-size: 12px;
+        width: fit-content;
     }
 }
 
@@ -114,6 +121,7 @@
     justify-content: center;
 
     .tooltiptext {
+        text-align: center;
         padding: 10px;
         font-size: 12px;
     }
