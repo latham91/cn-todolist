@@ -36,8 +36,6 @@ Contributions are welcome! If you'd like to contribute, follow these steps:
 4. Push your changes to your fork.
 5. Submit a pull request.
 
-Please adhere to the coding style and provide tests for your contributions.
-
 ## Folder Structure
 The project follows a standard React folder structure.
 
