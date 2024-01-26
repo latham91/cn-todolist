@@ -39,9 +39,3 @@ Contributions are welcome! If you'd like to contribute, follow these steps:
 ## Folder Structure
 The project follows a standard React folder structure.
 
-## License
-This Todo List app is open-source and available under the [Your License Here].
-
-## Acknowledgments
-Special thanks to Code Nation: Master Software Bootcamp for inspiring and supporting this project.
-
