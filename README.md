@@ -1,4 +1,4 @@
-![Screenshot](https://github.com/latham91/cn-todolist/blob/main/Screenshot%202024-01-26%20at%2019.41.48.png)
+![Screenshot](https://github.com/latham91/cn-todolist/blob/main/Screenshot%202024-01-26%20at%2019.53.04.png)
 
 # Todo List App
 
