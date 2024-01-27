@@ -1,12 +1,14 @@
 import "./TodoCard.css";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { LuTrash2, LuCheckCircle, LuUndo2 } from "react-icons/lu";
+import { useState, useRef } from "react";
+import { LuTrash2, LuCheckCircle, LuUndo2, LuPencil, LuCheckSquare } from "react-icons/lu";
 
-export default function TodoCard({ todo, remove, done, progress }) {
+export default function TodoCard({ todo, remove, done, progress, edit }) {
     const [deleteTooltip, setDeleteTooltip] = useState(false);
     const [doneTooltip, setDoneTooltip] = useState(false);
     const [inProgTooltip, setInProgTooltip] = useState(false);
+    const [editTooltip, setEditTooltip] = useState(false);
+    const [editTodo, setEditTodo] = useState(false);
 
     // Animations
     const [fadeOut, setFadeOut] = useState(false);
@@ -14,6 +16,9 @@ export default function TodoCard({ todo, remove, done, progress }) {
     const [slideToBr, setSlideToBr] = useState(false);
     const [slideToBottom, setSlideToBottom] = useState(false);
     const [slideToLeft, setSlideToLeft] = useState(false);
+
+    // Ref for input
+    const editInput = useRef(null);
 
     // Handle tooltips based on the status of the todo item (done, in progress, todo)
     const handleTooltip = (type) => {
@@ -27,6 +32,10 @@ export default function TodoCard({ todo, remove, done, progress }) {
 
         if (type === "inProg") {
             setInProgTooltip((currVal) => !currVal);
+        }
+
+        if (type === "edit") {
+            setEditTooltip((currVal) => !currVal);
         }
     };
 
@@ -84,6 +93,24 @@ export default function TodoCard({ todo, remove, done, progress }) {
         }, 650);
     };
 
+    // Handle click for edit button
+    const handleEdit = () => {
+        if (editTodo) {
+            setEditTodo(false);
+            return edit(todo.id, editInput.current.value);
+        }
+
+        setEditTodo(true);
+    };
+
+    // Handle enter key for edit input
+    const handleEditComplete = (e) => {
+        if (e.key === "Enter") {
+            setEditTodo(false);
+            return edit(todo.id, editInput.current.value);
+        }
+    };
+
     return (
         <div
             className={`todoItem ${fadeOut ? "fadeOutAnim" : ""} ${slideRight ? "slideRightAnim fadeOutAnim" : ""} ${
@@ -112,19 +139,29 @@ export default function TodoCard({ todo, remove, done, progress }) {
                     </div>
                 )}
             </div>
-            <span>{todo.title}</span>
+            {editTodo ? (
+                <input
+                    ref={editInput}
+                    className="editInput"
+                    type="text"
+                    defaultValue={todo.title}
+                    onKeyDown={handleEditComplete}
+                />
+            ) : (
+                <span>{todo.title}</span>
+            )}
             <div className="todoButtons">
                 <button
-                    onMouseEnter={() => handleTooltip("delete")}
-                    onMouseLeave={() => setDeleteTooltip(false)}
-                    onClick={handleDelete}
-                    className="btnDelete"
+                    onMouseEnter={() => handleTooltip("edit")}
+                    onMouseLeave={() => setEditTooltip(false)}
+                    onClick={handleEdit}
+                    className="btnEdit"
                 >
-                    <LuTrash2 size={20} />
+                    {!editTodo ? <LuPencil size={20} /> : <LuCheckSquare size={20} />}
 
-                    {deleteTooltip && (
+                    {editTooltip && (
                         <div className="tooltip">
-                            <span className="tooltiptext">Delete todo</span>
+                            <span className="tooltiptext">Edit todo</span>
                         </div>
                     )}
                 </button>
@@ -144,6 +181,20 @@ export default function TodoCard({ todo, remove, done, progress }) {
                         </div>
                     )}
                 </button>
+                <button
+                    onMouseEnter={() => handleTooltip("delete")}
+                    onMouseLeave={() => setDeleteTooltip(false)}
+                    onClick={handleDelete}
+                    className="btnDelete"
+                >
+                    <LuTrash2 size={20} />
+
+                    {deleteTooltip && (
+                        <div className="tooltip">
+                            <span className="tooltiptext">Delete todo</span>
+                        </div>
+                    )}
+                </button>
             </div>
         </div>
     );
@@ -155,4 +206,5 @@ TodoCard.propTypes = {
     remove: PropTypes.func.isRequired,
     done: PropTypes.func,
     progress: PropTypes.func,
+    edit: PropTypes.func,
 };
