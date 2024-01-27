@@ -221,7 +221,45 @@ export default function App() {
     };
 
     // EDIT TODO
-    const editTodo = (id, newValue) => {
+    const editTodo = (id, newValue, status) => {
+        console.log(id, newValue, status);
+        // Check status of todo to determine which array to update
+        if (status === "done") {
+            // Find the todo to edit
+            const findTodo = doneTodos.find((todo) => todo.id === id);
+
+            // Update todo title
+            findTodo.title = newValue;
+
+            // Update todos array and local storage
+            const updatedDoneTodos = [...doneTodos];
+            setDoneTodos(updatedDoneTodos);
+            localStorage.setItem("doneTodos", JSON.stringify(updatedDoneTodos));
+
+            // Toastify
+            editToast();
+
+            return;
+        }
+
+        if (status === "inProgress") {
+            // Find the todo to edit
+            const findTodo = inProgressTodos.find((todo) => todo.id === id);
+
+            // Update todo title
+            findTodo.title = newValue;
+
+            // Update todos array and local storage
+            const updatedInProgressTodos = [...inProgressTodos];
+            setInProgressTodos(updatedInProgressTodos);
+            localStorage.setItem("inProgressTodos", JSON.stringify(updatedInProgressTodos));
+
+            // Toastify
+            editToast();
+
+            return;
+        }
+
         // Find the todo to edit
         const findTodo = todos.find((todo) => todo.id === id);
 
@@ -300,6 +338,7 @@ export default function App() {
                                             remove={deleteTodo}
                                             done={completeTodo}
                                             progress={inProgressTodo}
+                                            edit={editTodo}
                                         />
                                     ))
                                 ) : (
@@ -316,7 +355,13 @@ export default function App() {
                             <div className="completedList">
                                 {doneTodos.length > 0 ? (
                                     doneTodos.map((todo) => (
-                                        <TodoCard key={todo.id} todo={todo} remove={deleteTodo} done={completeTodo} />
+                                        <TodoCard
+                                            key={todo.id}
+                                            todo={todo}
+                                            remove={deleteTodo}
+                                            done={completeTodo}
+                                            edit={editTodo}
+                                        />
                                     ))
                                 ) : (
                                     <p>No completed todos.</p>

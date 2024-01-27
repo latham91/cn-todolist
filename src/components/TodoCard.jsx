@@ -95,9 +95,17 @@ export default function TodoCard({ todo, remove, done, progress, edit }) {
 
     // Handle click for edit button
     const handleEdit = () => {
+        console.log(todo);
+        console.log(edit);
+
         if (editTodo) {
+            if (editInput.current.value === todo.title) {
+                setEditTodo(false);
+                return;
+            }
+
             setEditTodo(false);
-            return edit(todo.id, editInput.current.value);
+            return edit(todo.id, editInput.current.value, todo.status);
         }
 
         setEditTodo(true);
@@ -106,8 +114,16 @@ export default function TodoCard({ todo, remove, done, progress, edit }) {
     // Handle enter key for edit input
     const handleEditComplete = (e) => {
         if (e.key === "Enter") {
+            if (editInput.current.value === todo.title) {
+                setEditTodo(false);
+                return;
+            }
+
             setEditTodo(false);
-            return edit(todo.id, editInput.current.value);
+            if (edit) {
+                // Check if edit is defined before calling it
+                return edit(todo.id, editInput.current.value, todo.status);
+            }
         }
     };
 
