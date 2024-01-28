@@ -1,9 +1,11 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
-import { LuCoffee, LuHeart } from "react-icons/lu";
-import TodoCard from "./components/TodoCard";
 import { ToastContainer, toast } from "react-toastify";
+
+import TodoCard from "./components/TodoCard";
+import AddTodo from "./components/AddTodo";
+import Footer from "./components/Footer";
 
 export default function App() {
     const [todos, setTodos] = useState([]);
@@ -300,11 +302,7 @@ export default function App() {
                             <h2>TODO LIST</h2>
                             <span className="todoCount">{todos.length}</span>
                         </div>
-                        <form onSubmit={addTodo}>
-                            <input type="text" placeholder="Enter a todo" />
-                            <button type="submit">Add</button>
-                        </form>
-
+                        <AddTodo addTodo={addTodo} />
                         <div className="todoList">
                             {todos.length > 0 ? (
                                 todos.map((todo) => (
@@ -370,10 +368,7 @@ export default function App() {
                         </div>
                     </div>
                 </div>
-                <footer>
-                    Made with <LuHeart className="heart" size={20} /> and <LuCoffee className="coffee" size={20} /> by{" "}
-                    <a href="https://github.com/latham91">Aaron Latham</a>
-                </footer>
+                <Footer />
             </div>
         </>
     );
